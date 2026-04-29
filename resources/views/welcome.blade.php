@@ -1,0 +1,9 @@
+<x-layout>
+  <h1>Belajar Laravel View</h1>
+
+  {{-- cara sambungkan atau pindh halaman --}}
+  <a href="/list-fakultas"> List Fakultas</a>
+
+
+  
+</x-layout>
