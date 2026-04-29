@@ -8,6 +8,14 @@
     @vite([])
   </head>
   <body>
+
+    <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+      <span class="navbar-text">
+      Navbar 
+      </span>
+    </div>
+  </nav>
     {{--CARA agar tulisan di welcome Blade PHP Berubah di web --}}
     {{ $slot }}
     {{-- ----------------------------------------------------------- --}}
