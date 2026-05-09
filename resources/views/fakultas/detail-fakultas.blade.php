@@ -1,6 +1,9 @@
-<x-layout>
+<x-layout title="Detail">
+
+
     <div>
         <h1>Detail Fakultas</h1>
+
 
         <table class="table">
             <tbody>

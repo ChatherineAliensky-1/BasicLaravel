@@ -8,12 +8,11 @@ use Illuminate\View\Component;
 
 class Layout extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public string $title;
+
+    public function __construct(string $title = "") //ditambah isi $title(diambil dari layout blade)
     {
-        //
+        $this->title = $title;
     }
 
     /**
@@ -21,6 +20,9 @@ class Layout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layout');
+        return view('components.layout',
+        [
+            'title' => $this->title
+        ]);
     }
 }

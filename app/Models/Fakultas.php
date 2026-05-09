@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Fakultas extends Model
 {
     //
-    protected $fillable = 
-    [
-        'name', //nama kolom diFakultas
+     protected $fillable = [
+        'name',
         'dekan'
     ];
 }

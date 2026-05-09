@@ -1,6 +1,33 @@
-<x-layout>
+<x-layout title="Edit">
   <div>
     <h1>Edit Fakultas</h1>
+
+    {{-- Memberikan Feedback ke user kalau data berhasil Disimpan --}}
+
+    @session('success')
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endsession
+
+    {{-- --------------------------------------------------------------------------------------------- --}}
+
+        {{--  --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+
+          <ul>
+              @foreach ($errors->all() as $error)
+                <li>
+                  {{ $error }}
+                </li>
+              @endforeach
+          </ul>
+          
+        </div>
+    @endif
+
+    
 
     {{-- Buat Form dengan pilihan form post --}}
     <form action="/fakultas/{{ $fakultas -> id }}" method="post">

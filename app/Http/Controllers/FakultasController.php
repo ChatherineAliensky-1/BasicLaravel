@@ -35,13 +35,22 @@ class FakultasController extends Controller
      */
     public function store(Request $request)
     {
+        
+        // cara agar ketika tidak ada data yang diisi lalu disimpan tidak error
+        $request->validate([
+            'name_fakultas' => ['required', 'min:3'],
+            'name_dekan' => ['required', 'min:3']
+        ]);
+
+
         //agar saat input data di Add Fakultas bisa tersimpan
         Fakultas::create([
             'name' => $request -> name_fakultas, 
             'dekan' => $request -> name_dekan //name_dekan di ambil dari add.fakultas.blade.php
         ]);
 
-        return redirect('/fakultas');
+        return redirect('/fakultas')->with('success',"Data Berhasil Disimpan");
+    
     }
 
     /**
@@ -49,9 +58,12 @@ class FakultasController extends Controller
      */
     public function show(Fakultas $fakulta)
     {
+        
         //
         return view('fakultas.detail-fakultas', compact('fakulta'));
         // cara panggil samakan dengan fakulta
+
+
     }
 
     /**
@@ -59,6 +71,8 @@ class FakultasController extends Controller
      */
     public function edit(Fakultas $fakulta)
     {
+
+
         //
         return view('fakultas.edit-fakultas', [
             'fakultas' => $fakulta
@@ -70,12 +84,17 @@ class FakultasController extends Controller
      */
     public function update(Request $request, Fakultas $fakulta)
     {
+        $request->validate([
+            'name_fakultas' => ['required', 'min:3'],
+            'name_dekan' => ['required', 'min:3']
+        ]);
+
         //
-        $fakulta->update([
+    $fakulta->update([
             'name' => $request->name_fakultas,
             'dekan' => $request->name_dekan
         ]);
-        return redirect('/fakultas');
+        return redirect('/fakultas')->with('success',"Data Berhasil Di Edit");
     }
 
     /**
@@ -84,8 +103,8 @@ class FakultasController extends Controller
     public function destroy(Fakultas $fakulta) //awalnya $fakultas jadi $fakulta
     {
         // Cara hapus data yang sudah di simpan
-        $fakulta->delete();
-        return redirect()->back();
+        $fakulta->delete(0);
+        return redirect()->back()->with('success',"Data Berhasil Dihapus");
 
 
     }
