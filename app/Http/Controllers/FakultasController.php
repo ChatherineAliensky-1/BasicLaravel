@@ -49,6 +49,7 @@ class FakultasController extends Controller
             'dekan' => $request -> name_dekan //name_dekan di ambil dari add.fakultas.blade.php
         ]);
 
+
         return redirect('/fakultas')->with('success',"Data Berhasil Disimpan");
     
     }
