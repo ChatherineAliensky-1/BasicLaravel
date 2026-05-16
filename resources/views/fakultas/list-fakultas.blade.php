@@ -32,33 +32,6 @@
         </a>
     </div>
 
-    {{-- 
-    |--------------------------------------------------------------------------
-    | ALERT SUCCESS
-    |--------------------------------------------------------------------------
-    | Menampilkan pesan jika data berhasil:
-    | - ditambahkan
-    | - diupdate
-    | - dihapus
-    |--------------------------------------------------------------------------
-    --}}
-    @if (session('success'))
-
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-
-            {{-- Menampilkan isi pesan success dari controller --}}
-            {{ session('success') }}
-
-            {{-- Tombol close alert --}}
-            <button 
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="alert">
-            </button>
-
-        </div>
-
-    @endif
 
     {{-- 
     |--------------------------------------------------------------------------

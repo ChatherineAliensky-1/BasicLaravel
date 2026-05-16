@@ -19,4 +19,8 @@ class Prodi extends Model
         'nama_kaprodi',
         'photo_kaprodi'
     ];
+    
+    public function fakultas(){
+        return $this->belongsTo(Fakultas::class);
+    }
 }

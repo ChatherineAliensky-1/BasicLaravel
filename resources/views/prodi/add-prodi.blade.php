@@ -1,6 +1,16 @@
 <x-layout>
     <h1>Tambah Prodi</h1>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif  
+    
     <form action="/prodi" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
