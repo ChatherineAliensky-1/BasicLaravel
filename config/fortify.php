@@ -73,7 +73,8 @@ return [
     |
     */
 
-    'home' => '/home',
+    // edit bagian ini dari /home jadi fakultas
+    'home' => '/fakultas',
 
     /*
     |--------------------------------------------------------------------------

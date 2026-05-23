@@ -5,22 +5,16 @@ use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\ProdiController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::middleware('auth')->group(function() {
+    
+    Route::get('/', function () {
     return view('welcome');
+    });
+
+    Route::resource('/fakultas',FakultasController::class);
+    Route::resource('prodi', ProdiController::class);
 });
 
-Route::resource('/fakultas',FakultasController::class);
-Route::resource('prodi', ProdiController::class);
-//CARA MANUAL------------------------------
-// cara menyambukan agar link bisa di buka
-// Route::get('list-fakultas', function () {
-//     return view('fakultas.list-fakultas');
-// });
 
-// Route::get('add-fakultas', function () {
-//     return view('fakultas.add-fakultas');
-// });
-
-// Route::get('edit-fakultas', function () {
-//     return view('fakultas.edit-fakultas');
-// });
+// Note : 
+// ->middleware('auth')->group(function() agar user harus login dulu baru bisa lihat data

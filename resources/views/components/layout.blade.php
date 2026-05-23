@@ -82,6 +82,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/fakultas/create">Tambah Fakultas</a>
                     </li>
+                    {{-- 23 May 2026  --}}
+                    <form action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                    {{-- End 23 May 262 --}}
+
                 </ul>
             </div>
         </div>

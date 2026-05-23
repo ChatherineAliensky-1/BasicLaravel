@@ -1,14 +1,4 @@
-{{-- 
-|--------------------------------------------------------------------------
-| HALAMAN LIST FAKULTAS
-|--------------------------------------------------------------------------
-| File ini digunakan untuk menampilkan seluruh data fakultas
-| beserta aksi:
-| - Detail
-| - Edit
-| - Hapus
-|--------------------------------------------------------------------------
---}}
+
 
 <x-layout title="List Fakultas">
 

@@ -29,6 +29,18 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // (23 May 2026) - Fortify
+        // Tambahkan -----------------------------------------------------   
+        Fortify::loginView(function(){
+            return view ('auth.login');
+        });
+
+        Fortify::registerView(function () {
+        return view('auth.register');
+        });
+
+        // (end 23-Mei-2026)-----------------------------------------------------------------
+
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
