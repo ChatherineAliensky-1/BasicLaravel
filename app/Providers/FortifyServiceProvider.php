@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract; // <-- Ditambahkan
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract; // <-- Ditambahkan
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -21,7 +23,43 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(
+            RegisterResponseContract::class,
+            function () {
+                return new class implements RegisterResponseContract {
+                    public function toResponse($request)
+                    {
+                        if ($request->expectsJson()) {
+                            return response()->json([
+                                'success' => true,
+                                'user' => $request->user(),
+                                'token' => $request->user()->createToken('api')->plainTextToken
+                            ]);
+                        }
+                        return redirect()->intended(Fortify::redirects('register'));
+                    }
+                };
+            }
+        );
+
+        $this->app->singleton(
+            LoginResponseContract::class,
+            function () {
+                return new class implements LoginResponseContract {
+                    public function toResponse($request)
+                    {
+                        if ($request->expectsJson()) {
+                            return response()->json([
+                                'success' => true,
+                                'user' => $request->user(),
+                                'token' => $request->user()->createToken('api')->plainTextToken // <-- Diperbaiki dari $request->user menjadi $request->user()
+                            ]);
+                        }
+                        return redirect()->intended(Fortify::redirects('login'));
+                    }
+                };
+            }
+        );
     }
 
     /**
@@ -31,12 +69,12 @@ class FortifyServiceProvider extends ServiceProvider
     {
         // (23 May 2026) - Fortify
         // Tambahkan -----------------------------------------------------   
-        Fortify::loginView(function(){
-            return view ('auth.login');
+        Fortify::loginView(function () {
+            return view('auth.login');
         });
 
         Fortify::registerView(function () {
-        return view('auth.register');
+            return view('auth.register');
         });
 
         // (end 23-Mei-2026)-----------------------------------------------------------------
@@ -48,7 +86,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });
@@ -61,7 +99,7 @@ class FortifyServiceProvider extends ServiceProvider
             $credentialId = $request->input('credential.id');
 
             return Limit::perMinute(10)->by(
-                ($credentialId ?: $request->session()->getId()).'|'.$request->ip()
+                ($credentialId ?: $request->session()->getId()) . '|' . $request->ip()
             );
         });
     }
